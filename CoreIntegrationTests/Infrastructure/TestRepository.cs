@@ -13,6 +13,7 @@ namespace CoreIntegrationTests.Infrastructure
     public class TestTKeyRepository<TKey> : BaseMongoRepository<TKey>, ITestRepository<TKey> where TKey : IEquatable<TKey>
     {
         const string connectionString = "mongodb://localhost:27017/MongoDbTests";
+
         private static readonly ITestRepository<TKey> _instance = new TestTKeyRepository<TKey>(connectionString);
         /// <inheritdoc />
         private TestTKeyRepository(string connectionString) : base(connectionString)
@@ -43,8 +44,8 @@ namespace CoreIntegrationTests.Infrastructure
     /// </summary>
     public sealed class TestRepository : BaseMongoRepository, ITestRepository
     {
-
         const string connectionString = "mongodb://localhost:27017";
+
         private static readonly ITestRepository _instance = new TestRepository(connectionString, "MongoDbTests");
 
         // Explicit static constructor to tell C# compiler

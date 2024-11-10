@@ -1,5 +1,6 @@
 ﻿using MongoDbGenericRepository.Models;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -96,7 +97,7 @@ namespace IntegrationTests.Infrastructure
             // Assert
             long count = string.IsNullOrEmpty(PartitionKey) ? SUT.Count<T, TKey>(e => e.Id.Equals(document.Id)) 
                                                             : SUT.Count<T, TKey>(e => e.Id.Equals(document.Id), PartitionKey);
-            Assert.AreEqual(1, count, GetTestName());
+            ClassicAssert.AreEqual(1, count, GetTestName());
         }
 
         [Test]
@@ -109,7 +110,7 @@ namespace IntegrationTests.Infrastructure
             // Assert
             long count = string.IsNullOrEmpty(PartitionKey) ? SUT.Count<T, TKey>(e => e.Id.Equals(document.Id))
                                                             : SUT.Count<T, TKey>(e => e.Id.Equals(document.Id), PartitionKey);
-            Assert.AreEqual(1, count, GetTestName());
+            ClassicAssert.AreEqual(1, count, GetTestName());
         }
 
         [Test]
@@ -124,7 +125,7 @@ namespace IntegrationTests.Infrastructure
                                                                                    || e.Id.Equals(documents[1].Id))
                                                             : SUT.Count<T, TKey>(e => e.Id.Equals(documents[0].Id)
                                                                                   || e.Id.Equals(documents[1].Id), PartitionKey);
-            Assert.AreEqual(2, count, GetTestName());
+            ClassicAssert.AreEqual(2, count, GetTestName());
         }
 
         [Test]
@@ -139,7 +140,7 @@ namespace IntegrationTests.Infrastructure
                                                                                    || e.Id.Equals(documents[1].Id))
                                                             : SUT.Count<T, TKey>(e => e.Id.Equals(documents[0].Id)
                                                                                   || e.Id.Equals(documents[1].Id), PartitionKey);
-            Assert.AreEqual(2, count, GetTestName());
+            ClassicAssert.AreEqual(2, count, GetTestName());
         }
 
 
@@ -156,7 +157,7 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.GetByIdAsync<T, TKey>(document.Id, PartitionKey);
             // Assert
-            Assert.IsNotNull(result, GetTestName());
+            ClassicAssert.IsNotNull(result, GetTestName());
         }
 
         [Test]
@@ -168,7 +169,7 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.GetById<T, TKey>(document.Id, PartitionKey);
             // Assert
-            Assert.IsNotNull(result, GetTestName());
+            ClassicAssert.IsNotNull(result, GetTestName());
         }
 
         [Test]
@@ -180,7 +181,7 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.GetOneAsync<T, TKey>(x => x.Id.Equals(document.Id), PartitionKey);
             // Assert
-            Assert.IsNotNull(result, GetTestName());
+            ClassicAssert.IsNotNull(result, GetTestName());
         }
 
         [Test]
@@ -192,7 +193,7 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.GetOne<T, TKey>(x => x.Id.Equals(document.Id), PartitionKey);
             // Assert
-            Assert.IsNotNull(result, GetTestName());
+            ClassicAssert.IsNotNull(result, GetTestName());
         }
 
         [Test]
@@ -205,7 +206,7 @@ namespace IntegrationTests.Infrastructure
             var cursor = SUT.GetCursor<T, TKey>(x => x.Id.Equals(document.Id), PartitionKey);
             var count = cursor.CountDocuments();
             // Assert
-            Assert.AreEqual(1, count, GetTestName());
+            ClassicAssert.AreEqual(1, count, GetTestName());
         }
 
         [Test]
@@ -217,7 +218,7 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.AnyAsync<T, TKey>(x => x.Id.Equals(document.Id), PartitionKey);
             // Assert
-            Assert.AreEqual(true, result, GetTestName());
+            ClassicAssert.AreEqual(true, result, GetTestName());
         }
 
         [Test]
@@ -229,7 +230,7 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.AnyAsync<T, TKey>(x => x.Id.Equals(document.Init<TKey>()), PartitionKey);
             // Assert
-            Assert.AreEqual(false, result, GetTestName());
+            ClassicAssert.AreEqual(false, result, GetTestName());
         }
 
         [Test]
@@ -241,7 +242,7 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.Any<T, TKey>(x => x.Id.Equals(document.Id), PartitionKey);
             // Assert
-            Assert.AreEqual(true, result, GetTestName());
+            ClassicAssert.AreEqual(true, result, GetTestName());
         }
 
         [Test]
@@ -253,7 +254,7 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.Any<T, TKey>(x => x.Id.Equals(document.Init<TKey>()), PartitionKey);
             // Assert
-            Assert.AreEqual(false, result, GetTestName());
+            ClassicAssert.AreEqual(false, result, GetTestName());
         }
 
         [Test]
@@ -267,7 +268,7 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.GetAllAsync<T, TKey>(x => x.SomeContent == content, PartitionKey);
             // Assert
-            Assert.AreEqual(5, result.Count, GetTestName());
+            ClassicAssert.AreEqual(5, result.Count, GetTestName());
         }
 
         [Test]
@@ -281,7 +282,7 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.GetAll<T, TKey>(x => x.SomeContent == content, PartitionKey);
             // Assert
-            Assert.AreEqual(5, result.Count, GetTestName());
+            ClassicAssert.AreEqual(5, result.Count, GetTestName());
         }
 
         [Test]
@@ -295,7 +296,7 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.CountAsync<T, TKey>(x => x.SomeContent == content, PartitionKey);
             // Assert
-            Assert.AreEqual(5, result, GetTestName());
+            ClassicAssert.AreEqual(5, result, GetTestName());
         }
 
         [Test]
@@ -309,7 +310,7 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.Count<T, TKey>(x => x.SomeContent == content, PartitionKey);
             // Assert
-            Assert.AreEqual(5, result, GetTestName());
+            ClassicAssert.AreEqual(5, result, GetTestName());
         }
 
         #endregion Read
@@ -327,10 +328,10 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.UpdateOne<T, TKey>(document);
             // Assert
-            Assert.IsTrue(result);
+            ClassicAssert.IsTrue(result);
             var updatedDocument = SUT.GetById<T, TKey>(document.Id, PartitionKey);
-            Assert.IsNotNull(updatedDocument, GetTestName());
-            Assert.AreEqual(content, updatedDocument.SomeContent, GetTestName());
+            ClassicAssert.IsNotNull(updatedDocument, GetTestName());
+            ClassicAssert.AreEqual(content, updatedDocument.SomeContent, GetTestName());
         }
 
         [Test]
@@ -344,10 +345,10 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.UpdateOneAsync<T, TKey>(document);
             // Assert
-            Assert.IsTrue(result);
+            ClassicAssert.IsTrue(result);
             var updatedDocument = SUT.GetById<T, TKey>(document.Id, PartitionKey);
-            Assert.IsNotNull(updatedDocument, GetTestName());
-            Assert.AreEqual(content, updatedDocument.SomeContent, GetTestName());
+            ClassicAssert.IsNotNull(updatedDocument, GetTestName());
+            ClassicAssert.AreEqual(content, updatedDocument.SomeContent, GetTestName());
         }
 
         [Test]
@@ -360,10 +361,10 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.UpdateOne<T, TKey, string>(document, x => x.SomeContent, content);
             // Assert
-            Assert.IsTrue(result, GetTestName());
+            ClassicAssert.IsTrue(result, GetTestName());
             var updatedDocument = SUT.GetById<T, TKey>(document.Id, PartitionKey);
-            Assert.IsNotNull(updatedDocument, GetTestName());
-            Assert.AreEqual(content, updatedDocument.SomeContent, GetTestName());
+            ClassicAssert.IsNotNull(updatedDocument, GetTestName());
+            ClassicAssert.AreEqual(content, updatedDocument.SomeContent, GetTestName());
         }
 
         [Test]
@@ -376,10 +377,10 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.UpdateOneAsync<T, TKey, string>(document, x => x.SomeContent, content);
             // Assert
-            Assert.IsTrue(result, GetTestName());
+            ClassicAssert.IsTrue(result, GetTestName());
             var updatedDocument = SUT.GetById<T, TKey>(document.Id, PartitionKey);
-            Assert.IsNotNull(updatedDocument, GetTestName());
-            Assert.AreEqual(content, updatedDocument.SomeContent, GetTestName());
+            ClassicAssert.IsNotNull(updatedDocument, GetTestName());
+            ClassicAssert.AreEqual(content, updatedDocument.SomeContent, GetTestName());
         }
 
         [Test]
@@ -392,10 +393,10 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.UpdateOne<T, TKey, string>(x => x.Id.Equals(document.Id), x => x.SomeContent, content, PartitionKey);
             // Assert
-            Assert.IsTrue(result, GetTestName());
+            ClassicAssert.IsTrue(result, GetTestName());
             var updatedDocument = SUT.GetById<T, TKey>(document.Id, PartitionKey);
-            Assert.IsNotNull(updatedDocument, GetTestName());
-            Assert.AreEqual(content, updatedDocument.SomeContent, GetTestName());
+            ClassicAssert.IsNotNull(updatedDocument, GetTestName());
+            ClassicAssert.AreEqual(content, updatedDocument.SomeContent, GetTestName());
         }
 
         [Test]
@@ -408,10 +409,10 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.UpdateOneAsync<T, TKey, string>(x => x.Id.Equals(document.Id), x => x.SomeContent, content, PartitionKey);
             // Assert
-            Assert.IsTrue(result, GetTestName());
+            ClassicAssert.IsTrue(result, GetTestName());
             var updatedDocument = SUT.GetById<T, TKey>(document.Id, PartitionKey);
-            Assert.IsNotNull(updatedDocument, GetTestName());
-            Assert.AreEqual(content, updatedDocument.SomeContent, GetTestName());
+            ClassicAssert.IsNotNull(updatedDocument, GetTestName());
+            ClassicAssert.AreEqual(content, updatedDocument.SomeContent, GetTestName());
         }
 
         [Test]
@@ -431,13 +432,13 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.UpdateOneAsync<T, TKey>(document, updateDef);
             // Assert
-            Assert.IsTrue(result);
+            ClassicAssert.IsTrue(result);
             var updatedDocument = SUT.GetById<T, TKey>(document.Id, PartitionKey);
-            Assert.IsNotNull(updatedDocument);
-            Assert.AreEqual(childrenToAdd[0].Type, updatedDocument.Children[0].Type, GetTestName());
-            Assert.AreEqual(childrenToAdd[0].Value, updatedDocument.Children[0].Value, GetTestName());
-            Assert.AreEqual(childrenToAdd[1].Type, updatedDocument.Children[1].Type, GetTestName());
-            Assert.AreEqual(childrenToAdd[1].Value, updatedDocument.Children[1].Value, GetTestName());
+            ClassicAssert.IsNotNull(updatedDocument);
+            ClassicAssert.AreEqual(childrenToAdd[0].Type, updatedDocument.Children[0].Type, GetTestName());
+            ClassicAssert.AreEqual(childrenToAdd[0].Value, updatedDocument.Children[0].Value, GetTestName());
+            ClassicAssert.AreEqual(childrenToAdd[1].Type, updatedDocument.Children[1].Type, GetTestName());
+            ClassicAssert.AreEqual(childrenToAdd[1].Value, updatedDocument.Children[1].Value, GetTestName());
         }
 
         [Test]
@@ -457,13 +458,13 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.UpdateOne<T, TKey>(document, updateDef);
             // Assert
-            Assert.IsTrue(result);
+            ClassicAssert.IsTrue(result);
             var updatedDocument = SUT.GetById<T, TKey>(document.Id, PartitionKey);
-            Assert.IsNotNull(updatedDocument);
-            Assert.AreEqual(childrenToAdd[0].Type, updatedDocument.Children[0].Type, GetTestName());
-            Assert.AreEqual(childrenToAdd[0].Value, updatedDocument.Children[0].Value, GetTestName());
-            Assert.AreEqual(childrenToAdd[1].Type, updatedDocument.Children[1].Type, GetTestName());
-            Assert.AreEqual(childrenToAdd[1].Value, updatedDocument.Children[1].Value, GetTestName());
+            ClassicAssert.IsNotNull(updatedDocument);
+            ClassicAssert.AreEqual(childrenToAdd[0].Type, updatedDocument.Children[0].Type, GetTestName());
+            ClassicAssert.AreEqual(childrenToAdd[0].Value, updatedDocument.Children[0].Value, GetTestName());
+            ClassicAssert.AreEqual(childrenToAdd[1].Type, updatedDocument.Children[1].Type, GetTestName());
+            ClassicAssert.AreEqual(childrenToAdd[1].Value, updatedDocument.Children[1].Value, GetTestName());
         }
 
         #endregion Update
@@ -479,8 +480,8 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.DeleteOne<T, TKey>(document);
             // Assert
-            Assert.AreEqual(1, result);
-            Assert.IsFalse(SUT.Any<T, TKey>(e => e.Id.Equals(document.Id), PartitionKey), GetTestName());
+            ClassicAssert.AreEqual(1, result);
+            ClassicAssert.IsFalse(SUT.Any<T, TKey>(e => e.Id.Equals(document.Id), PartitionKey), GetTestName());
         }
 
         [Test]
@@ -492,8 +493,8 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.DeleteOne<T, TKey>(e => e.Id.Equals(document.Id), PartitionKey);
             // Assert
-            Assert.AreEqual(1, result);
-            Assert.IsFalse(SUT.Any<T, TKey>(e => e.Id.Equals(document.Id), PartitionKey), GetTestName());
+            ClassicAssert.AreEqual(1, result);
+            ClassicAssert.IsFalse(SUT.Any<T, TKey>(e => e.Id.Equals(document.Id), PartitionKey), GetTestName());
         }
 
         [Test]
@@ -505,8 +506,8 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.DeleteOneAsync<T, TKey>(document);
             // Assert
-            Assert.AreEqual(1, result);
-            Assert.IsFalse(SUT.Any<T, TKey>(e => e.Id.Equals(document.Id), PartitionKey), GetTestName());
+            ClassicAssert.AreEqual(1, result);
+            ClassicAssert.IsFalse(SUT.Any<T, TKey>(e => e.Id.Equals(document.Id), PartitionKey), GetTestName());
         }
 
         [Test]
@@ -518,8 +519,8 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.DeleteOneAsync<T, TKey>(e => e.Id.Equals(document.Id), PartitionKey);
             // Assert
-            Assert.AreEqual(1, result);
-            Assert.IsFalse(SUT.Any<T, TKey>(e => e.Id.Equals(document.Id), PartitionKey), GetTestName());
+            ClassicAssert.AreEqual(1, result);
+            ClassicAssert.IsFalse(SUT.Any<T, TKey>(e => e.Id.Equals(document.Id), PartitionKey), GetTestName());
         }
 
         [Test]
@@ -533,8 +534,8 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.DeleteManyAsync<T, TKey>(e => e.SomeContent == criteria, PartitionKey);
             // Assert
-            Assert.AreEqual(5, result);
-            Assert.IsFalse(SUT.Any<T, TKey>(e => e.SomeContent == criteria, PartitionKey), GetTestName());
+            ClassicAssert.AreEqual(5, result);
+            ClassicAssert.IsFalse(SUT.Any<T, TKey>(e => e.SomeContent == criteria, PartitionKey), GetTestName());
         }
 
         [Test]
@@ -548,8 +549,8 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = await SUT.DeleteManyAsync<T, TKey>(documents);
             // Assert
-            Assert.AreEqual(5, result);
-            Assert.IsFalse(SUT.Any<T, TKey>(e => e.SomeContent == criteria, PartitionKey), GetTestName());
+            ClassicAssert.AreEqual(5, result);
+            ClassicAssert.IsFalse(SUT.Any<T, TKey>(e => e.SomeContent == criteria, PartitionKey), GetTestName());
         }
 
         [Test]
@@ -563,8 +564,8 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.DeleteMany<T, TKey>(e => e.SomeContent == criteria, PartitionKey);
             // Assert
-            Assert.AreEqual(5, result);
-            Assert.IsFalse(SUT.Any<T, TKey>(e => e.SomeContent == criteria, PartitionKey), GetTestName());
+            ClassicAssert.AreEqual(5, result);
+            ClassicAssert.IsFalse(SUT.Any<T, TKey>(e => e.SomeContent == criteria, PartitionKey), GetTestName());
         }
 
         [Test]
@@ -578,8 +579,8 @@ namespace IntegrationTests.Infrastructure
             // Act
             var result = SUT.DeleteMany<T, TKey>(documents);
             // Assert
-            Assert.AreEqual(5, result);
-            Assert.IsFalse(SUT.Any<T, TKey>(e => e.SomeContent == criteria, PartitionKey), GetTestName());
+            ClassicAssert.AreEqual(5, result);
+            ClassicAssert.IsFalse(SUT.Any<T, TKey>(e => e.SomeContent == criteria, PartitionKey), GetTestName());
         }
 
         #endregion Delete
@@ -606,10 +607,10 @@ namespace IntegrationTests.Infrastructure
                 },
                 PartitionKey);
             // Assert
-            Assert.IsNotNull(result, GetTestName());
-            Assert.AreEqual(someContent, result.SomeContent, GetTestName());
-            Assert.AreEqual(someDate.Minute, result.SomeDate.Minute, GetTestName());
-            Assert.AreEqual(someDate.Second, result.SomeDate.Second, GetTestName());
+            ClassicAssert.IsNotNull(result, GetTestName());
+            ClassicAssert.AreEqual(someContent, result.SomeContent, GetTestName());
+            ClassicAssert.AreEqual(someDate.Minute, result.SomeDate.Minute, GetTestName());
+            ClassicAssert.AreEqual(someDate.Second, result.SomeDate.Second, GetTestName());
         }
 
         [Test]
@@ -632,10 +633,10 @@ namespace IntegrationTests.Infrastructure
                 },
                 PartitionKey);
             // Assert
-            Assert.IsNotNull(result, GetTestName());
-            Assert.AreEqual(someContent, result.SomeContent, GetTestName());
-            Assert.AreEqual(someDate.Minute, result.SomeDate.Minute, GetTestName());
-            Assert.AreEqual(someDate.Second, result.SomeDate.Second, GetTestName());
+            ClassicAssert.IsNotNull(result, GetTestName());
+            ClassicAssert.AreEqual(someContent, result.SomeContent, GetTestName());
+            ClassicAssert.AreEqual(someDate.Minute, result.SomeDate.Minute, GetTestName());
+            ClassicAssert.AreEqual(someDate.Second, result.SomeDate.Second, GetTestName());
         }
 
         [Test]
@@ -662,10 +663,10 @@ namespace IntegrationTests.Infrastructure
                 },
                 PartitionKey);
             // Assert
-            Assert.AreEqual(5, result.Count, GetTestName());
-            Assert.AreEqual(someContent, result.First().SomeContent, GetTestName());
-            Assert.AreEqual(someDate.Minute, result.First().SomeDate.Minute, GetTestName());
-            Assert.AreEqual(someDate.Second, result.First().SomeDate.Second, GetTestName());
+            ClassicAssert.AreEqual(5, result.Count, GetTestName());
+            ClassicAssert.AreEqual(someContent, result.First().SomeContent, GetTestName());
+            ClassicAssert.AreEqual(someDate.Minute, result.First().SomeDate.Minute, GetTestName());
+            ClassicAssert.AreEqual(someDate.Second, result.First().SomeDate.Second, GetTestName());
         }
 
         [Test]
@@ -692,10 +693,10 @@ namespace IntegrationTests.Infrastructure
                 },
                 PartitionKey);
             // Assert
-            Assert.AreEqual(5, result.Count, GetTestName());
-            Assert.AreEqual(someContent, result.First().SomeContent, GetTestName());
-            Assert.AreEqual(someDate.Minute, result.First().SomeDate.Minute, GetTestName());
-            Assert.AreEqual(someDate.Second, result.First().SomeDate.Second, GetTestName());
+            ClassicAssert.AreEqual(5, result.Count, GetTestName());
+            ClassicAssert.AreEqual(someContent, result.First().SomeContent, GetTestName());
+            ClassicAssert.AreEqual(someDate.Minute, result.First().SomeDate.Minute, GetTestName());
+            ClassicAssert.AreEqual(someDate.Second, result.First().SomeDate.Second, GetTestName());
         }
 
         #endregion Project

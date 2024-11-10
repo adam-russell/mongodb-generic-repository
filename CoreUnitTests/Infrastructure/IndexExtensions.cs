@@ -59,11 +59,10 @@ public static class IndexExtensions
 
     private static string RenderIndexModelKeys<TDocument>(IndexKeysDefinition<TDocument> keys)
     {
-        var indexModelRendered = keys.Render(
-            BsonSerializer.SerializerRegistry.GetSerializer<TDocument>(),
-            BsonSerializer.SerializerRegistry);
+        var renderArgs = new RenderArgs<TDocument>(BsonSerializer.SerializerRegistry.GetSerializer<TDocument>(), BsonSerializer.SerializerRegistry);
+        var indexModelRendered = keys.Render(renderArgs);
 
         var result = indexModelRendered.ToString();
-        return result.Replace(" ", "");
+        return result.Replace(" ", string.Empty);
     }
 }

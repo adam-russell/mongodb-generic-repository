@@ -30,7 +30,6 @@ namespace MongoDbGenericRepository
         /// <param name="mongoDatabase">An object implementing IMongoDatabase</param>
         public MongoDbContext(IMongoDatabase mongoDatabase)
         {
-            // Avoid legacy UUID representation: use Binary 0x04 subtype.
             InitializeGuidRepresentation();
             Database = mongoDatabase;
             Client = Database.Client;
@@ -94,12 +93,8 @@ namespace MongoDbGenericRepository
         /// <param name="guidRepresentation">The new value of the GuidRepresentation</param>
         public virtual void SetGuidRepresentation(GuidRepresentation guidRepresentation)
         {
-            // GuidRepresentation and GuidRepresentationMode will be removed in the next major release of the MongoDB Driver.
-            // We can safely replace this with RepositorySerializationProvider.Instance.RegisterSerializer once we upgrade to the next major release.
-#pragma warning disable CS0618
-            BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
+            // https://www.mongodb.com/docs/drivers/csharp/current/fundamentals/serialization/guid-serialization/
             RepositorySerializationProvider.Instance.RegisterSerializer(new GuidSerializer(guidRepresentation));
-#pragma warning restore CS0618
         }
 
         /// <summary>
